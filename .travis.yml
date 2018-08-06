@@ -8,7 +8,7 @@ language: go
 # in the next version of Go. Don't worry! Later we declare that test runs
 # are allowed to fail on Go tip.
 go:
-  - 1.10.x
+  - 1.11beta3
   - master
 
 matrix:
@@ -24,16 +24,7 @@ notifications:
   email: false
 
 env:
-  - DEP_VERSION="0.4.1"
-
-before_install:
-  # Download the binary to bin folder in $GOPATH
-  - curl -L -s https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 -o $GOPATH/bin/dep
-  # Make the binary executable
-  - chmod +x $GOPATH/bin/dep
-
-install:
-  - dep ensure
+  - GO111MODULE="on"
 
 # Anything in before_script that returns a nonzero exit code will
 # flunk the build and immediately stop. It's sorta like having
