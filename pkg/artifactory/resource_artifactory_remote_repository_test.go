@@ -5,13 +5,14 @@ import (
 
 	"context"
 	"fmt"
+	"net/http"
+
 	"github.com/atlassian/go-artifactory/pkg/artifactory"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"net/http"
 )
 
-const remoteRepository_basic = `
+const remoteRepositoryBasic = `
 resource "artifactory_remote_repository" "terraform-remote-test-repo-basic" {
 	key = "terraform-remote-test-repo-basic"
     url = "https://central.maven.org"
@@ -24,7 +25,7 @@ func TestAccRemoteRepository_basic(t *testing.T) {
 		Providers:    testAccProviders,
 		Steps: []resource.TestStep{
 			{
-				Config: remoteRepository_basic,
+				Config: remoteRepositoryBasic,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("artifactory_remote_repository.terraform-remote-test-repo-basic", "key", "terraform-remote-test-repo-basic"),
 					resource.TestCheckResourceAttr("artifactory_remote_repository.terraform-remote-test-repo-basic", "url", "https://central.maven.org"),
@@ -34,7 +35,7 @@ func TestAccRemoteRepository_basic(t *testing.T) {
 	})
 }
 
-const remoteRepositoryConfig_full = `
+const remoteRepositoryConfigFull = `
 resource "artifactory_remote_repository" "terraform-remote-test-repo-full" {
     key                             	  = "terraform-remote-test-repo-full"
 	package_type                          = "npm"
@@ -82,7 +83,7 @@ func TestAccRemoteRepository_full(t *testing.T) {
 		CheckDestroy: resourceRemoteRepositoryCheckDestroy("artifactory_remote_repository.terraform-remote-test-repo-full"),
 		Steps: []resource.TestStep{
 			{
-				Config: remoteRepositoryConfig_full,
+				Config: remoteRepositoryConfigFull,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("artifactory_remote_repository.terraform-remote-test-repo-full", "key", "terraform-remote-test-repo-full"),
 					resource.TestCheckResourceAttr("artifactory_remote_repository.terraform-remote-test-repo-full", "package_type", "npm"),

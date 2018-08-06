@@ -5,13 +5,14 @@ import (
 
 	"context"
 	"fmt"
+	"net/http"
+
 	"github.com/atlassian/go-artifactory/pkg/artifactory"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"net/http"
 )
 
-const localRepository_basic = `
+const localRepositoryBasic = `
 resource "artifactory_local_repository" "terraform-local-test-repo-basic" {
 	key 	     = "terraform-local-test-repo-basic"
 	package_type = "docker"
@@ -24,7 +25,7 @@ func TestAccLocalRepository_basic(t *testing.T) {
 		Providers:    testAccProviders,
 		Steps: []resource.TestStep{
 			{
-				Config: localRepository_basic,
+				Config: localRepositoryBasic,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("artifactory_local_repository.terraform-local-test-repo-basic", "key", "terraform-local-test-repo-basic"),
 					resource.TestCheckResourceAttr("artifactory_local_repository.terraform-local-test-repo-basic", "package_type", "docker"),
@@ -34,7 +35,7 @@ func TestAccLocalRepository_basic(t *testing.T) {
 	})
 }
 
-const localRepositoryConfig_full = `
+const localRepositoryConfigFull = `
 resource "artifactory_local_repository" "terraform-local-test-repo-full" {
     key                             = "terraform-local-test-repo-full"
     package_type                    = "npm"
@@ -66,7 +67,7 @@ func TestAccLocalRepository_full(t *testing.T) {
 		CheckDestroy: resourceLocalRepositoryCheckDestroy("artifactory_local_repository.terraform-local-test-repo-full"),
 		Steps: []resource.TestStep{
 			{
-				Config: localRepositoryConfig_full,
+				Config: localRepositoryConfigFull,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("artifactory_local_repository.terraform-local-test-repo-full", "key", "terraform-local-test-repo-full"),
 					resource.TestCheckResourceAttr("artifactory_local_repository.terraform-local-test-repo-full", "package_type", "npm"),

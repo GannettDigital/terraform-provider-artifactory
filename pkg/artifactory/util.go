@@ -3,6 +3,7 @@ package artifactory
 import (
 	"crypto/sha256"
 	"encoding/hex"
+
 	"github.com/atlassian/go-artifactory/pkg/artifactory"
 	"github.com/hashicorp/terraform/helper/schema"
 )

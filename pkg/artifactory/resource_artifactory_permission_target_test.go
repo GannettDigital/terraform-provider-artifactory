@@ -3,14 +3,15 @@ package artifactory
 import (
 	"context"
 	"fmt"
+	"net/http"
+	"testing"
+
 	"github.com/atlassian/go-artifactory/pkg/artifactory"
 	"github.com/hashicorp/terraform/helper/resource"
 	"github.com/hashicorp/terraform/terraform"
-	"net/http"
-	"testing"
 )
 
-const permission_basic = `
+const permissionBasic = `
 resource "artifactory_permission_targets" "terraform-test-permission-basic" {
 	name 	     = "testpermission"
 	repositories = ["not-restricted"]
@@ -32,7 +33,7 @@ func TestAccPermission_basic(t *testing.T) {
 		Providers:    testAccProviders,
 		Steps: []resource.TestStep{
 			{
-				Config: permission_basic,
+				Config: permissionBasic,
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("artifactory_permission_targets.terraform-test-permission-basic", "name", "testpermission"),
 					resource.TestCheckResourceAttr("artifactory_permission_targets.terraform-test-permission-basic", "repositories.#", "1"),
