@@ -4,9 +4,10 @@ import (
 	"fmt"
 
 	"context"
+	"net/http"
+
 	"github.com/atlassian/go-artifactory/pkg/artifactory"
 	"github.com/hashicorp/terraform/helper/schema"
-	"net/http"
 )
 
 func resourceArtifactoryRemoteRepository() *schema.Resource {
@@ -198,7 +199,7 @@ func resourceArtifactoryRemoteRepository() *schema.Resource {
 				Default:  "",
 			},
 			"bypass_head_requests": {
-				Type:	  schema.TypeBool,
+				Type:     schema.TypeBool,
 				Optional: true,
 				Default:  false,
 			},

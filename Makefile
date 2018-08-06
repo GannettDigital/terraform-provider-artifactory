@@ -10,7 +10,7 @@ dep:
 	@dep ensure -v
 
 fmt:
-	@gofmt -w $(GOFMT_FILES)
+	@gofmt -s -w .
 
 test:
 	@go test -v ./...
